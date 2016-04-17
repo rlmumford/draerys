@@ -1,6 +1,10 @@
 {
     "require": {
         "amphp/aerys": "dev-master",
-        "drupal/core": "~8.2",
+        "drupal/core": "~8.2"
+    },
+    "autoload": {
+        "psr-4": { "Draerys\\": "src/"}
     },
     "minimum-stability": "dev"
+}
