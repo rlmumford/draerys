@@ -6,5 +6,10 @@
     "autoload": {
         "psr-4": { "Draerys\\": "src/"}
     },
+    "extra": {
+      "installer-paths": {
+        "core": [ "drupal/core"]
+      }
+    },
     "minimum-stability": "dev"
 }
