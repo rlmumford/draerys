@@ -16,7 +16,6 @@ class DraerysKernel extends DrupalKernel {
   public function __construct($environment, $class_loader, $allow_dumping = TRUE) {
     $this->containerNeedsRebuild = TRUE;
     parent::__construct($environment, $class_loader, $allow_dumping);
-    $this->root = dirname(dirname(__FILE__));
   }
 
   /**

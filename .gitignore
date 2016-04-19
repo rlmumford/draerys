@@ -1,5 +1,8 @@
 # Ignore the vendor directory.
 vendor/*
 
+# Ignore core.
+core
+
 # Ignore composer.lock.
 composer.lock

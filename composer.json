@@ -1,5 +1,6 @@
 {
     "require": {
+        "composer/installers": "^1.0.20",
         "amphp/aerys": "dev-master",
         "drupal/core": "~8.2"
     },
@@ -8,7 +9,7 @@
     },
     "extra": {
       "installer-paths": {
-        "core": [ "drupal/core"]
+        "core": [ "type:drupal-core"]
       }
     },
     "minimum-stability": "dev"
