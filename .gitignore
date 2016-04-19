@@ -4,5 +4,9 @@ vendor/*
 # Ignore core.
 core
 
+# Ignore sites/default/files
+sites/default/files
+sites/default/settings.php
+
 # Ignore composer.lock.
 composer.lock
