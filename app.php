@@ -10,11 +10,15 @@ use Aerys\Request as AerysRequest;
 use Aerys\Response;
 use Draerys\DraerysKernel;
 use Draerys\Http\Request;
+use Drupal\Core\Database\Database;
 
 $autoloader = require 'vendor/autoload.php';
 
+$site_path = 'sites/default';
+
 $kernel = new DraerysKernel('prod', $autoloader);
-$kernel->setSitePath('sites/default');
+$kernel->bootEnvironment();
+$kernel->setSitePath($site_path);
 
 $host = new Host();
 $host->use(function(AerysRequest $req, Response $resp) use (&$kernel) {
@@ -26,6 +30,14 @@ $host->use(function(AerysRequest $req, Response $resp) use (&$kernel) {
     return;
   }
 
+  // Check whether drupal is installed and redirect of not.
+  if (!Database::getConnectionInfo() && !drupal_installation_attempted() && PHP_SAPI !== 'cli') {
+    $resp->end('Drupal Cannot be Installed Through Draerys at this time.');
+    return;
+  }
+
+  // Try and move out of handler.
+  $kernel->boot();
   $buffered_content = yield $req->getBody();
   $parsed_body = yield Aerys\parseBody($req);
   $post = $parsed_body->getAll();
@@ -53,5 +65,6 @@ $host->use(function(AerysRequest $req, Response $resp) use (&$kernel) {
 
   // Send page content
   $resp->end($result->getContent());
+  $kernel->terminate($request, $result);
 });
-$host->use(root(__DIR__));
+$host->use(root(__DIR__, ['mimeTypes' => ['svg' => 'image/svg+xml']]));
