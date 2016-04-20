@@ -29,9 +29,6 @@ class Request extends SymfonyRequest {
       $aerys_request->getAllHeaders(),
       $buffered_content
     );
-    print "Content: ".$buffered_content."\n";
-    print "POST PARAMS: "; print_r($post_params); print "\n";
-    print "Build ID: ".$request->request->get('form_build_id')."\n";
     return $request;
   }
 }
