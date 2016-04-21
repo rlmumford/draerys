@@ -42,7 +42,15 @@ $host->use(function(AerysRequest $req, Response $resp) use (&$kernel) {
   $parsed_body = yield Aerys\parseBody($req);
   $post = $parsed_body->getAll();
   $request = Request::createFromAerysRequest($req, $post['fields'] ? $post['fields'] : [], $buffered_content);
+
+  // Build the symfony response from the request.
   $result = $kernel->handle($request);
+
+  // Pop the request we just added off of the request stack.
+  // @todo: This is a work around. To do non-blocking Drupal properly we need
+  // to find a way not to rely on a static current path service/request stack.
+  $request_stack = $kernel->getContainer()->get('request_stack');
+  $request_stack->pop();
 
   // Write all headers out.
   foreach ($result->headers->allPreserveCase() as $key => $value) {

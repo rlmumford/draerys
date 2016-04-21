@@ -14,4 +14,4 @@ Currently this package is for experimenting with a persistant bootstrap for perf
 
 ## Known Issues
 
-- The user/login form always uses the first loaded page as its action, rather than user/login. This might be because the path.current service in drupal is too stateful.
+- Not Possible to install a new site with draerys.
